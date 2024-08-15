@@ -36,20 +36,30 @@
 
 // App.js
 // import Header from './Components/Header';
+import './index.css'; // Import index.css first
+import './App.css';   // Import App.css second
+
 import Nav from './Components/Nav';
-import Body from './Components/Body';
+import Hero from './Components/Hero';
 import Footer from './Components/Footer';
+import Specials from './Components/Specials';
+import About from './Components/About';
+import Testimonials from './Components/Testimonials';
 
 function App() {
   return (
     <>
       {/* <Header /> */}
       <Nav />
-      <Body />
+      <Hero />
+      <Specials />
+      <Testimonials />
+      <About />
       <Footer />
     </>
   );
 }
 
 export default App;
+
 

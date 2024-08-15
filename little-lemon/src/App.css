@@ -1,42 +1,529 @@
+/* Root styles */
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Navigation Styles */
+.nav-container {
+  display: flex;
+  align-items: center; /* Aligns items vertically in the center */
+  justify-content: space-between; /* Spreads out the logo and links */
+  padding: 1rem 2rem; /* Adjusts spacing around the nav bar */
+  background-color: #fff; /* White background for better visibility */
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.nav-logo {
+  height: 50px; /* Adjust the size as needed */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+.nav-links {
+  list-style-type: none; /* Remove bullet points */
+  display: flex; /* Align items horizontally */
+  gap: 2rem; /* Space between the links */
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.nav-links li a:hover {
+  color: #646cff;
+}
+
+/* Hamburger Menu Button */
+.hamburger {
+  display: none; /* Hide by default */
+  font-size: 2rem; /* Size of the hamburger icon */
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333; /* Color of the hamburger icon */
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000; /* Make sure it appears on top of other elements */
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block; /* Show hamburger on mobile */
   }
+
+  .nav-logo {
+    height: 40px; /* Resize logo for mobile */
+    margin-left: 0.5rem; /* Adjust margin to position the logo */
+  }
+
+  .nav-container {
+    justify-content: space-between;
+    padding: 0.5rem 1rem; /* Adjust padding for mobile */
+  }
+
+  .nav-links-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.9); /* Darken background for mobile menu */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .nav-links-container.open {
+    transform: translateX(0); /* Slide in the menu */
+  }
+
+  .nav-links {
+    flex-direction: column; /* Stack links vertically */
+    gap: 1.5rem; /* Space between links */
+  }
+
+  .nav-links li {
+    margin: 1rem 0; /* Space out the links */
+  }
+
+  .close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    color: #fff; /* White color for close button */
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+}
+/* Specials Section */
+.specials-section {
+  padding: 2rem 0;
+  background-color: #f4f4f4;
+}
+
+.specials-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 0 2rem;
+}
+
+.specials-header h2 {
+  font-size: 2rem;
+  color: #333;
+}
+
+.online-menu-button {
+  background-color: #f4ce14;
+  color: #333;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.online-menu-button:hover {
+  background-color: #ddb709;
+}
+
+.specials-cards {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 0 2rem;
 }
 
 .card {
-  padding: 2em;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+  flex: 1;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column; /* Ensure content stacks vertically */
+  transition: max-height 0.3s ease-in-out;
 }
 
-.read-the-docs {
-  color: #888;
+.card.expanded {
+  max-height: none; /* Allow the card to expand fully */
+}
+
+.card-image {
+  width: 100%;
+  height: 200px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.card-content {
+  padding: 1rem;
+  flex-grow: 1; /* Ensures that the content section takes up space */
+}
+
+.card-title-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.card-title-price h3 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.card-price {
+  font-size: 1.25rem;
+  color: #f4ce14;
+  font-weight: bold;
+}
+
+.card-description {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+  max-height: 3.6em; /* Show only 2 lines by default */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: max-height 0.3s ease, white-space 0.3s ease;
+}
+
+.card-description.expanded {
+  max-height: none; /* Show full description when expanded */
+  white-space: normal; /* Allow line breaks */
+}
+
+.read-more {
+  display: block; /* Ensures it takes full width and stays above the button */
+  margin-bottom: 1rem; /* Space between the read more/less link and the button */
+  color: #007bff;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.read-more:hover {
+  text-decoration: underline;
+}
+
+.order-button {
+  background-color: #495e57;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: block;
+}
+
+.order-button:hover {
+  background-color: #3b4a47;
+}
+
+.scooter-icon {
+  margin-left: 0.5rem;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+  padding: 2rem 0;
+  background-color: #ffffff;
+}
+
+.testimonials-header {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.testimonials-cards {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 0 2rem;
+}
+
+.testimonial-card {
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 250px;
+  flex: 1;
+  padding: 1rem;
+  text-align: center;
+}
+
+.testimonial-rating {
+  font-size: 1.5rem;
+  color: #f4ce14;
+  margin-bottom: 1rem;
+}
+
+.testimonial-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.testimonial-image {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-right: 1rem;
+}
+
+.testimonial-name {
+  font-size: 1.25rem;
+  color: #333;
+  font-weight: bold;
+}
+
+.testimonial-review {
+  font-size: 1rem;
+  color: #555;
+  margin-top: 1rem;
+}
+
+
+/* About Section */
+.about-section {
+  padding: 3rem 2rem;
+  background-color: #ffffff;
+}
+
+.about-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.about-text {
+  max-width: 600px;
+}
+
+.about-title {
+  font-size: 3rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.about-location {
+  font-size: 2rem;
+  color: #f4ce14; /* Lemon yellow color */
+  margin-bottom: 1.5rem;
+}
+
+.about-description {
+  font-size: 1.25rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+.about-images {
+  position: relative;
+  max-width: 400px;
+  margin-top: 2rem;
+}
+
+.about-image {
+  border-radius: 8px;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about-image-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  transform: translate(-10%, -10%);
+}
+
+.about-image-bottom {
+  position: relative;
+  z-index: 1;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .about-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .about-images {
+    max-width: 100%;
+    margin-top: 2rem;
+  }
+
+  .about-image-top {
+    transform: translate(0, 0);
+    position: relative;
+  }
+
+  .about-image-bottom {
+    margin-top: 1rem;
+  }
+}
+
+
+/* Footer Section */
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+  background-color: #333;
+  color: #fff;
+  flex-wrap: wrap;
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 200px;
+  margin-bottom: 1.5rem;
+}
+
+.footer-logo {
+  width: 150px;
+}
+
+.footer-nav, .footer-contact, .footer-social {
+  list-style-type: none;
+  padding: 0;
+}
+
+.footer-nav li, .footer-social li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-nav a, .footer-social a {
+  color: #f4ce14; /* Lemon yellow color */
+  text-decoration: none;
+}
+
+.footer-nav a:hover, .footer-social a:hover {
+  text-decoration: underline;
+}
+
+.footer-contact p {
+  margin: 0.5rem 0;
+}
+
+.map-container {
+  width: 100%;
+  height: 150px;
+  margin: 1rem 0;
+  background-color: #222; /* Placeholder color */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .footer-column {
+    margin-bottom: 2rem;
+  }
+  .footer-logo {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Hero Section */
+.hero-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4rem 2rem;
+  background-color: #495E57;
+  color: #fff;
+  flex-wrap: wrap;
+}
+
+.hero-content {
+  flex: 1;
+  max-width: 600px;
+}
+
+.hero-title {
+  font-family: 'Markazi Text', serif;
+  font-size: 3.5rem;
+  margin: 0 0 1rem;
+}
+
+.hero-location {
+  font-family: 'Karla', sans-serif;
+  font-size: 2rem;
+  margin: 0 0 1.5rem;
+}
+
+.hero-description {
+  font-family: 'Karla', sans-serif;
+  font-size: 1.45rem;
+  line-height: 1.5;
+  margin: 0 0 2rem;
+}
+
+.reserve-button {
+  font-family: 'Karla', sans-serif;
+  background-color: #F4CE14;
+  color: #333;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.reserve-button:hover {
+  background-color: #e5ba12;
+}
+
+.hero-image-container {
+  flex: 1;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-content {
+    margin-bottom: 2rem;
+  }
+
+  .hero-image-container {
+    max-width: 100%;
+  }
 }
