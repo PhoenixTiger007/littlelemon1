@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 
 function BookingForm({ availableTimes, dispatch }) {
+  // State variables for new fields
+  const [name, setName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [email, setEmail] = useState('');
+
+  // Existing state variables
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [guests, setGuests] = useState(1);
   const [occasion, setOccasion] = useState('');
-  const [message, setMessage] = useState(''); // State for success or error message
-  const [error, setError] = useState(''); // State for validation error message
 
   const handleDateChange = (e) => {
     setDate(e.target.value);
@@ -15,72 +19,120 @@ function BookingForm({ availableTimes, dispatch }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Log all form data for now
+    console.log('Form submitted:', { name, phoneNumber, email, date, time, guests, occasion });
 
-    // Validation checks
-    if (!date || !time || !guests || !occasion) {
-      setError('Please fill out all fields.');
-      return;
-    }
-
-    // If validation passes, proceed with form submission
-    setError(''); // Clear any previous error messages
-    console.log('Form submitted:', { date, time, guests, occasion });
-    
-    // Display success message
-    setMessage('Your Booking has now been placed.');
-
-    // Clear the form fields
+    // Reset form fields
+    setName('');
+    setPhoneNumber('');
+    setEmail('');
     setDate('');
     setTime('');
     setGuests(1);
     setOccasion('');
-    
-    // Optionally, hide the success message after a few seconds
-    setTimeout(() => {
-      setMessage('');
-    }, 3000); // Hide the message after 3 seconds
+
+    alert('Your booking has been placed!');
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} style={{ display: 'grid', maxWidth: '200px', gap: '20px', margin: '0 auto', padding: '20px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', borderRadius: '8px' }}>
-        <label htmlFor="res-date">Choose date</label>
-        <input type="date" id="res-date" value={date} onChange={handleDateChange} />
-        
-        <label htmlFor="res-time">Choose time</label>
-        <select id="res-time" value={time} onChange={(e) => setTime(e.target.value)}>
-          <option value="">Select a time</option>
-          {availableTimes.map((time) => (
-            <option key={time} value={time}>{time}</option>
-          ))}
-        </select>
-        
-        <label htmlFor="guests">Number of guests</label>
-        <input
-          type="number"
-          id="guests"
-          value={guests}
-          onChange={(e) => setGuests(e.target.value)}
-          min="1"
-          max="10"
-        />
-        
-        <label htmlFor="occasion">Occasion</label>
-        <select id="occasion" value={occasion} onChange={(e) => setOccasion(e.target.value)}>
-          <option value="">Select an occasion</option>
-          <option value="Birthday">Birthday</option>
-          <option value="Anniversary">Anniversary</option>
-        </select>
-        
-        <input type="submit" value="Make Your Reservation" />
-      </form>
+    <form
+      onSubmit={handleSubmit}
+      style={{ display: 'grid', maxWidth: '300px', gap: '20px' }}
+      aria-labelledby="booking-form-title"
+    >
+      <h2 id="booking-form-title">Reserve Your Table</h2>
 
-      {/* Error message */}
-      {error && <p style={{ textAlign: 'center', color: 'red', marginTop: '10px' }}>{error}</p>}
+      {/* Name Field */}
+      <label htmlFor="name">Name</label>
+      <input
+        type="text"
+        id="name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+        aria-required="true"
+      />
+
+      {/* Phone Number Field */}
+      <label htmlFor="phone-number">Phone Number</label>
+      <input
+        type="tel"
+        id="phone-number"
+        value={phoneNumber}
+        onChange={(e) => setPhoneNumber(e.target.value)}
+        required
+        aria-required="true"
+        pattern="[0-9]{10}" // Simple validation for 10-digit phone numbers
+      />
+
+      {/* Email Field */}
+      <label htmlFor="email">Email Address</label>
+      <input
+        type="email"
+        id="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+        aria-required="true"
+      />
+
+      {/* Date Field */}
+      <label htmlFor="res-date">Choose date</label>
+      <input
+        type="date"
+        id="res-date"
+        value={date}
+        onChange={handleDateChange}
+        required
+        aria-required="true"
+      />
       
-      {/* Success message */}
-      {message && <p style={{ textAlign: 'center', color: 'green', marginTop: '20px' }}>{message}</p>}
-    </div>
+      {/* Time Field */}
+      <label htmlFor="res-time">Choose time</label>
+      <select
+        id="res-time"
+        value={time}
+        onChange={(e) => setTime(e.target.value)}
+        required
+        aria-required="true"
+      >
+        {availableTimes.map((time) => (
+          <option key={time} value={time}>{time}</option>
+        ))}
+      </select>
+      
+      {/* Number of Guests Field */}
+      <label htmlFor="guests">Number of guests</label>
+      <input
+        type="number"
+        id="guests"
+        value={guests}
+        onChange={(e) => setGuests(e.target.value)}
+        min="1"
+        max="10"
+        required
+        aria-required="true"
+      />
+      
+      {/* Occasion Field */}
+      <label htmlFor="occasion">Occasion</label>
+      <select
+        id="occasion"
+        value={occasion}
+        onChange={(e) => setOccasion(e.target.value)}
+        required
+        aria-required="true"
+      >
+        <option value="Birthday">Birthday</option>
+        <option value="Anniversary">Anniversary</option>
+      </select>
+      
+      <input
+        type="submit"
+        value="Make Your Reservation"
+        aria-label="Make Your Reservation"
+      />
+    </form>
   );
 }
 

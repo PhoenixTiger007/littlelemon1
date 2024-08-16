@@ -210,16 +210,30 @@
 }
 
 .read-more {
-  display: block; 
-  margin-bottom: 1rem; 
+  display: block; /* Ensures it takes full width and stays above the button */
+  margin-bottom: 1rem; /* Space between the read more/less link and the button */
   color: #333;
   cursor: pointer;
   font-weight: bold;
+  background: none; /* Remove default button background */
+  border: none; /* Remove default button border */
+  padding: 0; /* Remove padding */
+  text-align: left; /* Align text to the left */
 }
 
 .read-more:hover {
   text-decoration: underline;
 }
+
+.read-more:focus {
+  outline: none; /* Remove default focus outline */
+}
+
+.read-more:focus-visible {
+  outline: 2px dashed #007bff; /* Custom focus outline for better accessibility */
+  outline-offset: 2px;
+}
+
 
 .order-button {
   background-color: #495e57;
@@ -513,37 +527,64 @@
   border-radius: 16px;
 }
 
+.booking-page-container {
+  display: flex;
+  flex-direction: column; /* Stack the title and form vertically */
+  align-items: center; /* Center the content horizontally */
+  padding: 50px 20px; /* Add padding to the container */
+  box-sizing: border-box;
+  max-width: 800px; /* Set a maximum width for the container */
+  margin: 0 auto; /* Center the container */
+}
+
+.booking-page-title {
+  font-size: 2rem; /* Adjust the font size as needed */
+  margin-bottom: 20px; /* Space between the title and the form */
+  text-align: center; /* Center the title text */
+}
+
+
 form {
   display: grid;
   gap: 20px;
-  padding: 20px;
-  max-width: 400px; /* Set a maximum width for the form */
+  padding: 30px;
+  max-width: 600px; /* Increased the maximum width of the form */
   margin: 50px auto; /* Center the form horizontally and add top/bottom margin */
   background-color: #fff; /* White background for the form box */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for the form box */
   border-radius: 16px; /* Rounded corners for the form box */
+  width: 100%; /* Ensure the form container takes up the full width */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
 label {
   font-weight: bold;
 }
 
+input[type="text"],
+input[type="tel"],
+input[type="email"],
 input[type="date"],
 input[type="number"],
 select {
-  padding: 10px; /* Increase padding for inputs */
+  padding: 12px; /* Increased padding for inputs */
   border-radius: 4px;
   border: 1px solid #ccc;
+  font-size: 1rem; /* Increase font size for better readability */
+  width: 100%; /* Ensure the inputs take up the full width of the form */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
 input[type="submit"] {
-  padding: 10px;
+  padding: 12px;
   background-color: #f4ce14;
   border: none;
   border-radius: 4px;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  font-size: 1rem; /* Ensure the submit button text is readable */
+  width: 100%; /* Make the submit button take the full width */
 }
 
 input[type="submit"]:hover {

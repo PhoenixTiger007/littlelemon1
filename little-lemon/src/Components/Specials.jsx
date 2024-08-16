@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import greekSaladImage from '../assets/images/greek salad.jpg';
 import bruschettaImage from '../assets/images/bruchetta.jpg';
 import lemonDessertImage from '../assets/images/lemon dessert.jpg';
@@ -43,7 +42,7 @@ function Specials() {
       </div>
       <div className="specials-cards">
         {specialsData.map((special, index) => (
-          <div className={`card ${expandedCard === index ? 'expanded' : ''}`} key={index}>
+          <div className={`card ${expandedCard === index ? 'expanded' : ''}`} key={index} aria-expanded={expandedCard === index ? 'true' : 'false'}>
             <img src={special.image} alt={special.alt} className="card-image" />
             <div className="card-content">
               <div className="card-title-price">
@@ -53,9 +52,14 @@ function Specials() {
               <div className={`card-description ${expandedCard === index ? 'expanded' : ''}`}>
                 {special.description}
               </div>
-              <span className="read-more" onClick={() => toggleReadMore(index)}>
+              <button 
+                className="read-more" 
+                onClick={() => toggleReadMore(index)} 
+                aria-expanded={expandedCard === index ? 'true' : 'false'}
+                aria-controls={`card-description-${index}`}
+              >
                 {expandedCard === index ? 'Read Less' : 'Read More'}
-              </span>
+              </button>
               <button className="order-button">
                 Order a Delivery <span className="scooter-icon">🛵</span>
               </button>
