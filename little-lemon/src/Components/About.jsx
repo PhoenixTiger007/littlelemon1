@@ -1,4 +1,6 @@
 import React from 'react';
+import about1Image from '../assets/images/Mario and Adrian A.jpg';
+import about2Image from '../assets/images/restaurant.jpg'
 
 function About() {
   return (
@@ -12,8 +14,8 @@ function About() {
           </p>
         </div>
         <div className="about-images">
-          <img src="./src/assets/images/about1.jpg" alt="Little Lemon interior" className="about-image about-image-top" />
-          <img src="./src/assets/images/about2.jpg" alt="Little Lemon dish" className="about-image about-image-bottom" />
+          <img src={about1Image} alt="Little Lemon interior" className="about-image about-image-top" />
+          <img src={about2Image} alt="Little Lemon dish" className="about-image about-image-bottom" />
         </div>
       </div>
     </section>

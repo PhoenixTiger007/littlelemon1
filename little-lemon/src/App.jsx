@@ -1,65 +1,43 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css'
+// App.jsx
+import './index.css';
+import './App.css';
 
-// function App() {
-//   const [count, setCount] = useState(0)
-
-//   return (
-//     <>
-//       <div>
-//         <a href="https://vitejs.dev" target="_blank">
-//           <img src={viteLogo} className="logo" alt="Vite logo" />
-//         </a>
-//         <a href="https://react.dev" target="_blank">
-//           <img src={reactLogo} className="logo react" alt="React logo" />
-//         </a>
-//       </div>
-//       <h1>Vite + React</h1>
-//       <div className="card">
-//         <button onClick={() => setCount((count) => count + 1)}>
-//           count is {count}
-//         </button>
-//         <p>
-//           Edit <code>src/App.jsx</code> and save to test HMR
-//         </p>
-//       </div>
-//       <p className="read-the-docs">
-//         Click on the Vite and React logos to learn more
-//       </p>
-//     </>
-//   )
-// }
-
-// export default App
-
-// App.js
-// import Header from './Components/Header';
-import './index.css'; // Import index.css first
-import './App.css';   // Import App.css second
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Nav from './Components/Nav';
 import Hero from './Components/Hero';
 import Footer from './Components/Footer';
 import Specials from './Components/Specials';
 import About from './Components/About';
 import Testimonials from './Components/Testimonials';
+import Main from './Components/Main'; // Import Main component
 
-function App() {
+function HomePage() {
   return (
     <>
-      {/* <Header /> */}
-      <Nav />
       <Hero />
       <Specials />
       <Testimonials />
       <About />
-      <Footer />
     </>
   );
 }
 
+function App() {
+  return (
+    <Router>
+      <Nav />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/menu" element={<Specials />} />
+        <Route path="/reservations" element={<Main />} /> {/* Use Main component */}
+        <Route path="/order-online" element={<Specials />} />
+        <Route path="/testimonials" element={<Testimonials />} />
+        <Route path="/login" element={<Hero />} />
+      </Routes>
+      <Footer />
+    </Router>
+  );
+}
+
 export default App;
-
-

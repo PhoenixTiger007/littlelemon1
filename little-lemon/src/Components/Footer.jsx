@@ -4,7 +4,7 @@ function Footer() {
   return (
     <footer className="footer-container">
       <div className="footer-column">
-        <img src="./src/assets/images/Logo.jpg" alt="Little Lemon Logo" className="footer-logo" />
+        <img src="./src/assets/images/logo2.png" alt="Little Lemon Logo" className="footer-logo" />
       </div>
       <div className="footer-column">
         <h3>Navigation</h3>
@@ -21,7 +21,7 @@ function Footer() {
         <h3>Contact</h3>
         <address className="footer-contact">
           <p>123 Lemon Street, Chicago, IL</p>
-          <div id="map" className="map-container"></div>
+          {/* <div id="map" className="map-container"></div> */}
           <p>Phone: (123) 456-7890</p>
           <p>Email: contact@littlelemon.com</p>
         </address>

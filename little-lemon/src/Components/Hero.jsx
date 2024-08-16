@@ -1,7 +1,14 @@
 import React from 'react';
-import heroImage from '../assets/images/restauranfood.jpg'; // Adjust the path based on your project structure
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import heroImage from '../assets/images/restauranfood1.jpg'; 
 
 function Hero() {
+  const navigate = useNavigate(); // Initialize useNavigate hook
+
+  const handleReserveClick = () => {
+    navigate('/reservations'); // Navigate to the reservations page
+  };
+
   return (
     <section className="hero-container">
       <div className="hero-content">
@@ -12,7 +19,9 @@ function Hero() {
           Our dishes are prepared with the freshest ingredients to bring you a
           taste of the Mediterranean.
         </p>
-        <button className="reserve-button">Reserve a Table</button>
+        <button className="reserve-button" onClick={handleReserveClick}>
+          Reserve a Table
+        </button>
       </div>
       <div className="hero-image-container">
         <img src={heroImage} alt="Little Lemon Restaurant" className="hero-image" />
