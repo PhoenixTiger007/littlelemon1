@@ -3,7 +3,7 @@
 
 <p align="center">Little Lemon is a family-owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.</p>
 
-![all-devices-black](https://github.com/sohomofficial/little-lemon/assets/93909798/3e16b4a3-3f21-4a60-b65d-d463b64c135d)
+
 
 
 
@@ -21,7 +21,7 @@
 Clone the project
 
 ```bash
-  git clone https://github.com/sohomofficial/little-lemon.git
+  git clone https://github.com/PhoenixTiger007/littlelemon1.git
 ```
 
 Go to the project directory
