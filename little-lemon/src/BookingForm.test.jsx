@@ -55,3 +55,5 @@ describe('BookingForm JavaScript Validation', () => {
   test('Should show alert when no time is selected', () => {
     const mockSubmitForm = jest.fn();
     global
+});
+});
