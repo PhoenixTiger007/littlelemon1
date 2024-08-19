@@ -1,12 +1,12 @@
 import React from 'react';
-import BookingForm from './BookingForm';
-import './App.css'; // Ensure you have this CSS file
+import Main from './Main'; 
+import './App.css'; 
 
 function BookingPage() {
   return (
     <div className="booking-page-container">
-      <h1 className="booking-page-title">Reserve a Table</h1>
-      <BookingForm />
+      <h1 id="booking-page-title" className="booking-page-title">Reserve a Table</h1>
+      <Main aria-labelledby="booking-page-title" />
     </div>
   );
 }

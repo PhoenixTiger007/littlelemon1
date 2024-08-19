@@ -13,31 +13,47 @@ function Nav() {
   };
 
   return (
-    <nav className="nav-container">
-      <Link to="/" onClick={closeMenu}>
-        <img src="./src/assets/images/Logo.jpg" alt="Little Lemon Logo" className="nav-logo" />
-      </Link>
-      <div className={`nav-links-container ${isOpen ? 'open' : ''}`}>
-        <ul className="nav-links">
-          <li><Link to="/" onClick={closeMenu}>Home</Link></li>
-          <li><Link to="/about" onClick={closeMenu}>About</Link></li>
-          <li><Link to="/menu" onClick={closeMenu}>Menu</Link></li>
-          <li><Link to="/reservations" onClick={closeMenu}>Reservations</Link></li>
-          <li><Link to="/order-online" onClick={closeMenu}>Order Online</Link></li>
-          <li><Link to="/login" onClick={closeMenu}>Login</Link></li>
-        </ul>
-        {/* Close button */}
-        {isOpen && (
-          <button className="close-button" onClick={closeMenu}>
-            ✖
-          </button>
-        )}
-      </div>
-      
-      <button className="hamburger" onClick={toggleMenu}>
-        ☰
-      </button>
-    </nav>
+    <header>
+      <nav className="nav-container" aria-label="Main Navigation">
+        <Link to="/" onClick={closeMenu}>
+          <img src="./src/assets/images/Logo.jpg" alt="Little Lemon Logo" className="nav-logo" />
+        </Link>
+        <div 
+          className={`nav-links-container ${isOpen ? 'open' : ''}`}
+          aria-expanded={isOpen}
+          aria-controls="nav-links"
+        >
+          <ul id="nav-links" className="nav-links">
+            <li><Link to="/" onClick={closeMenu}>Home</Link></li>
+            <li><Link to="/about" onClick={closeMenu}>About</Link></li>
+            <li><Link to="/menu" onClick={closeMenu}>Menu</Link></li>
+            <li><Link to="/reservations" onClick={closeMenu}>Reservations</Link></li>
+            <li><Link to="/order-online" onClick={closeMenu}>Order Online</Link></li>
+            <li><Link to="/login" onClick={closeMenu}>Login</Link></li>
+          </ul>
+         
+          {isOpen && (
+            <button 
+              className="close-button" 
+              onClick={closeMenu} 
+              aria-label="Close navigation menu"
+            >
+              ✖
+            </button>
+          )}
+        </div>
+        
+        <button 
+          className="hamburger" 
+          onClick={toggleMenu} 
+          aria-expanded={isOpen} 
+          aria-controls="nav-links"
+          aria-label={isOpen ? "Close menu" : "Open menu"}
+        >
+          ☰
+        </button>
+      </nav>
+    </header>
   );
 }
 

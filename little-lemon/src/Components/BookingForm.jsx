@@ -1,37 +1,50 @@
 import React, { useState } from 'react';
 
-function BookingForm({ availableTimes, dispatch }) {
-  // State variables for new fields
-  const [name, setName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [email, setEmail] = useState('');
+function BookingForm({ availableTimes = [], dispatch, submitForm }) { 
+  const [formData, setFormData] = useState({
+    name: '',
+    phoneNumber: '',
+    email: '',
+    date: '',
+    time: '',
+    guests: 1,
+    occasion: ''
+  });
 
-  // Existing state variables
-  const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
-  const [guests, setGuests] = useState(1);
-  const [occasion, setOccasion] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formErrors, setFormErrors] = useState({ time: '' }); // State to handle specific form errors
 
-  const handleDateChange = (e) => {
-    setDate(e.target.value);
-    dispatch({ type: 'UPDATE_TIMES', date: e.target.value });
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData({ ...formData, [id]: value });
+
+    if (id === 'date') {
+      dispatch({ type: 'UPDATE_TIMES', date: value });
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Log all form data for now
-    console.log('Form submitted:', { name, phoneNumber, email, date, time, guests, occasion });
 
-    // Reset form fields
-    setName('');
-    setPhoneNumber('');
-    setEmail('');
-    setDate('');
-    setTime('');
-    setGuests(1);
-    setOccasion('');
+    // Clear previous errors
+    setFormErrors({ time: '' });
 
-    alert('Your booking has been placed!');
+    // Validate time selection
+    if (!formData.time) {
+      setFormErrors({ time: 'Please select a valid time.' });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      await submitForm(formData); 
+    } catch (error) {
+      console.error("Error submitting booking:", error);
+      alert('An error occurred while placing your booking. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -42,96 +55,110 @@ function BookingForm({ availableTimes, dispatch }) {
     >
       <h2 id="booking-form-title">Reserve Your Table</h2>
 
-      {/* Name Field */}
       <label htmlFor="name">Name</label>
       <input
         type="text"
         id="name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
+        value={formData.name}
+        onChange={handleChange}
         required
         aria-required="true"
+        disabled={isSubmitting}
       />
 
-      {/* Phone Number Field */}
-      <label htmlFor="phone-number">Phone Number</label>
+      <label htmlFor="phoneNumber">Phone Number</label>
       <input
         type="tel"
-        id="phone-number"
-        value={phoneNumber}
-        onChange={(e) => setPhoneNumber(e.target.value)}
+        id="phoneNumber"
+        value={formData.phoneNumber}
+        onChange={handleChange}
         required
         aria-required="true"
-        pattern="[0-9]{10}" // Simple validation for 10-digit phone numbers
+        pattern="[0-9]{10}" 
+        disabled={isSubmitting}
       />
 
-      {/* Email Field */}
       <label htmlFor="email">Email Address</label>
       <input
         type="email"
         id="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        value={formData.email}
+        onChange={handleChange}
         required
         aria-required="true"
+        disabled={isSubmitting}
       />
 
-      {/* Date Field */}
-      <label htmlFor="res-date">Choose date</label>
+      <label htmlFor="date">Choose date</label>
       <input
         type="date"
-        id="res-date"
-        value={date}
-        onChange={handleDateChange}
+        id="date"
+        value={formData.date}
+        onChange={handleChange}
         required
         aria-required="true"
+        disabled={isSubmitting}
       />
-      
-      {/* Time Field */}
-      <label htmlFor="res-time">Choose time</label>
+
+      <label htmlFor="time">Choose time</label>
       <select
-        id="res-time"
-        value={time}
-        onChange={(e) => setTime(e.target.value)}
+        id="time"
+        value={formData.time}
+        onChange={handleChange}
         required
         aria-required="true"
+        disabled={isSubmitting || availableTimes.length === 0}
+        aria-invalid={!!formErrors.time} // Mark the field as invalid if there's an error
       >
+        <option value="">Choose a time</option> {/* Updated default option */}
         {availableTimes.map((time) => (
-          <option key={time} value={time}>{time}</option>
+          <option key={time} value={time}>
+            {time}
+          </option>
         ))}
       </select>
-      
-      {/* Number of Guests Field */}
+      {/* Display specific error message under the time selector */}
+      {formErrors.time && (
+        <div style={{ color: 'red' }} aria-live="polite">
+          {formErrors.time}
+        </div>
+      )}
+
       <label htmlFor="guests">Number of guests</label>
       <input
         type="number"
         id="guests"
-        value={guests}
-        onChange={(e) => setGuests(e.target.value)}
+        value={formData.guests}
+        onChange={handleChange}
         min="1"
         max="10"
         required
         aria-required="true"
+        disabled={isSubmitting}
       />
-      
-      {/* Occasion Field */}
+
       <label htmlFor="occasion">Occasion</label>
       <select
         id="occasion"
-        value={occasion}
-        onChange={(e) => setOccasion(e.target.value)}
+        value={formData.occasion}
+        onChange={handleChange}
         required
         aria-required="true"
+        disabled={isSubmitting}
       >
+        <option value="">Choose Occasion</option> {/* Updated default option */}
         <option value="Birthday">Birthday</option>
         <option value="Anniversary">Anniversary</option>
       </select>
-      
+
       <input
         type="submit"
-        value="Make Your Reservation"
+        value={isSubmitting ? 'Submitting...' : 'Make Your Reservation'}
         aria-label="Make Your Reservation"
+        disabled={isSubmitting}
       />
+
+      {isSubmitting && <div aria-live="polite">Submitting your reservation...</div>}
     </form>
   );
 }

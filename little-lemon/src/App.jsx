@@ -1,4 +1,3 @@
-// App.jsx
 import './index.css';
 import './App.css';
 
@@ -9,7 +8,8 @@ import Footer from './Components/Footer';
 import Specials from './Components/Specials';
 import About from './Components/About';
 import Testimonials from './Components/Testimonials';
-import Main from './Components/Main'; // Import Main component
+import Main from './Components/Main'; 
+import ConfirmedBooking from './Components/ConfirmedBooking.jsx';
 
 function HomePage() {
   return (
@@ -26,15 +26,18 @@ function App() {
   return (
     <Router>
       <Nav />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/menu" element={<Specials />} />
-        <Route path="/reservations" element={<Main />} /> {/* Use Main component */}
-        <Route path="/order-online" element={<Specials />} />
-        <Route path="/testimonials" element={<Testimonials />} />
-        <Route path="/login" element={<Hero />} />
-      </Routes>
+      <div role="main"> 
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/menu" element={<Specials />} />
+          <Route path="/reservations" element={<Main />} /> 
+          <Route path="/order-online" element={<Specials />} />
+          <Route path="/testimonials" element={<Testimonials />} />
+          <Route path="/login" element={<Hero />} />
+          <Route path="/confirmed" element={<ConfirmedBooking />} />
+        </Routes>
+      </div>
       <Footer />
     </Router>
   );

@@ -1,12 +1,12 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import { useNavigate } from 'react-router-dom'; 
 import heroImage from '../assets/images/restauranfood1.jpg'; 
 
 function Hero() {
-  const navigate = useNavigate(); // Initialize useNavigate hook
+  const navigate = useNavigate(); 
 
   const handleReserveClick = () => {
-    navigate('/reservations'); // Navigate to the reservations page
+    navigate('/reservations'); 
   };
 
   return (
@@ -22,7 +22,7 @@ function Hero() {
         <button
           className="reserve-button"
           onClick={handleReserveClick}
-          aria-label="Reserve a table at Little Lemon"
+          aria-label="Reserve a table at Little Lemon restaurant in Chicago"
         >
           Reserve a Table
         </button>

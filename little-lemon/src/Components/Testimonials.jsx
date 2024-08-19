@@ -33,18 +33,27 @@ function Testimonials() {
   ];
 
   return (
-    <section className="testimonials-section">
-      <h2 className="testimonials-header">Testimonials</h2>
+    <section className="testimonials-section" aria-labelledby="testimonials-heading">
+      <h2 id="testimonials-heading" className="testimonials-header">Testimonials</h2>
       <div className="testimonials-cards">
         {testimonialsData.map((testimonial, index) => (
-          <div className="testimonial-card" key={index}>
-            <div className="testimonial-rating">{testimonial.rating}</div>
-            <div className="testimonial-info">
-              <img src={testimonial.image} alt={`Photo of ${testimonial.name}`} className="testimonial-image" />
-              <div className="testimonial-name">{testimonial.name}</div>
+          <article className="testimonial-card" key={index}>
+            <div 
+              className="testimonial-rating" 
+              aria-label={`Rating: ${testimonial.rating.length} out of 5 stars`}
+            >
+              {testimonial.rating}
             </div>
+            <figure className="testimonial-info">
+              <img 
+                src={testimonial.image} 
+                alt={`Photo of ${testimonial.name}`} 
+                className="testimonial-image" 
+              />
+              <figcaption className="testimonial-name">{testimonial.name}</figcaption>
+            </figure>
             <p className="testimonial-review">{testimonial.review}</p>
-          </div>
+          </article>
         ))}
       </div>
     </section>

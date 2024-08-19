@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import greekSaladImage from '../assets/images/greek salad.jpg';
 import bruschettaImage from '../assets/images/bruchetta.jpg';
 import lemonDessertImage from '../assets/images/lemon dessert.jpg';
@@ -35,36 +35,47 @@ function Specials() {
   };
 
   return (
-    <section className="specials-section">
+    <section className="specials-section" aria-labelledby="specials-heading">
       <div className="specials-header">
-        <h2>Specials</h2>
-        <button className="online-menu-button">Online Menu</button>
+        <h2 id="specials-heading">Specials</h2>
+        <button className="online-menu-button" aria-label="View online menu">Online Menu</button>
       </div>
       <div className="specials-cards">
         {specialsData.map((special, index) => (
-          <div className={`card ${expandedCard === index ? 'expanded' : ''}`} key={index} aria-expanded={expandedCard === index ? 'true' : 'false'}>
+          <article 
+            className={`card ${expandedCard === index ? 'expanded' : ''}`} 
+            key={index} 
+            aria-expanded={expandedCard === index ? 'true' : 'false'}
+          >
             <img src={special.image} alt={special.alt} className="card-image" />
             <div className="card-content">
               <div className="card-title-price">
-                <h3>{special.title}</h3>
+                <h3 id={`special-title-${index}`}>{special.title}</h3>
                 <span className="card-price">{special.price}</span>
               </div>
-              <div className={`card-description ${expandedCard === index ? 'expanded' : ''}`}>
+              <p 
+                id={`card-description-${index}`} 
+                className={`card-description ${expandedCard === index ? 'expanded' : ''}`}
+              >
                 {special.description}
-              </div>
+              </p>
               <button 
                 className="read-more" 
                 onClick={() => toggleReadMore(index)} 
                 aria-expanded={expandedCard === index ? 'true' : 'false'}
                 aria-controls={`card-description-${index}`}
+                aria-label={expandedCard === index ? 'Collapse description' : 'Expand description'}
               >
                 {expandedCard === index ? 'Read Less' : 'Read More'}
               </button>
-              <button className="order-button">
-                Order a Delivery <span className="scooter-icon">🛵</span>
+              <button 
+                className="order-button" 
+                aria-label={`Order a delivery of ${special.title}`}
+              >
+                Order a Delivery <span className="scooter-icon" role="img" aria-label="Scooter">🛵</span>
               </button>
             </div>
-          </div>
+          </article>
         ))}
       </div>
     </section>
